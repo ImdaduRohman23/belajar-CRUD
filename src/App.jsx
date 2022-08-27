@@ -50,8 +50,6 @@ function App() {
     setContacts(data)
     setFormData({name: '', telp: ''})
     setIsUpdate({id: null, status: false})
-
-
   }
 
   const handleEdit = (id) => {
@@ -59,6 +57,12 @@ function App() {
     let foundData = data.find((contac) => contac.id === id);
     setFormData({ name: foundData.name, telp: foundData.telp});
     setIsUpdate({id: id, status: true})
+  }
+
+  const handleDel = (id) => {
+    let data = [...contacs];
+    let filterData = data.filter((constact) => constact.id != id )
+    setContacts(filterData);
   }
 
 
@@ -97,7 +101,7 @@ function App() {
         </form>
       </div>
       <div style={{ marginTop: 350 }}>
-        <ListContacts handleEdit={handleEdit} data={contacs}/>
+        <ListContacts handleDel={handleDel} handleEdit={handleEdit} data={contacs}/>
       </div>
     </div>
   );
