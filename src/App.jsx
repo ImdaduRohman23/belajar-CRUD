@@ -13,9 +13,11 @@ function App() {
     }
   ]);
 
+  const [isUpdate, setIsUpdate] = useState({id: null, status: false})
+
   const [formData, setFormData] = useState({
-    name: 'coba',
-    telp: '123',
+    name: '',
+    telp: '',
   })
 
   const handleChange = (e) => {
@@ -28,9 +30,35 @@ function App() {
     e.preventDefault()
     let data = [...contacs];
 
-    data.push({id: uid(), name: formData.name, telp: formData.telp})
-    setContacts(data)
+    if(formData.name === '') {
+      return false
+    } 
+    if(formData.telp === '') {
+      return false
+    }
 
+    if(isUpdate.status) {
+      data.forEach((contact) => {
+        if (contact.id === isUpdate.id) {
+          contact.name = formData.name;
+          contact.telp = formData.telp;
+        }
+      })
+    } else {
+      data.push({id: uid(), name: formData.name, telp: formData.telp})
+    }
+    setContacts(data)
+    setFormData({name: '', telp: ''})
+    setIsUpdate({id: null, status: false})
+
+
+  }
+
+  const handleEdit = (id) => {
+    let data = [...contacs];
+    let foundData = data.find((contac) => contac.id === id);
+    setFormData({ name: foundData.name, telp: foundData.telp});
+    setIsUpdate({id: id, status: true})
   }
 
 
@@ -69,7 +97,7 @@ function App() {
         </form>
       </div>
       <div style={{ marginTop: 350 }}>
-        <ListContacts data={contacs}/>
+        <ListContacts handleEdit={handleEdit} data={contacs}/>
       </div>
     </div>
   );
