@@ -6,12 +6,19 @@ import Form from 'react-bootstrap/Form';
 import { useState } from "react";
 import { uid } from "uid";
 import swal from 'sweetalert';
+import { useEffect } from "react";
+import axios from "axios";
 
 function App() {
   const [contacs, setContacs] = useState([]);
   const [name, setName] = useState('');
   const [no, setNo] = useState('');
   const [edit, setEdit] = useState({id: null, status: false});
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/contacts')
+      .then(res => setContacs(res.data))
+  }, [])
 
   const handleSave = (e) => {
     e.preventDefault();
@@ -23,9 +30,16 @@ function App() {
           item.name = name;
           item.no = no;
         }
+
+        axios.put(`http://localhost:3000/contacts/${edit.id}`, {
+          name: name,
+          no: no
+        })
       })
     } else {
-      data.push({id: uid(), name: name, no: no});
+      let newContacts = {id: uid(), name: name, no: no};
+      data.push(newContacts);
+      axios.post('http://localhost:3000/contacts', newContacts)
     }
     setContacs(data);
     swal("Data berhasil ditambahkan!", "", "success");
@@ -45,6 +59,7 @@ function App() {
   const handleDelete = (id) => {
     let data = [...contacs];
     let cariData = data.filter(i => i.id != id);
+    axios.delete(`http://localhost:3000/contacts/${id}`)
     setContacs(cariData);
     swal({
       title: "Data berhasil dihapus!",
