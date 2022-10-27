@@ -10,11 +10,33 @@ function App() {
   const [contacs, setContacs] = useState([]);
   const [name, setName] = useState('');
   const [no, setNo] = useState('');
+  const [edit, setEdit] = useState({id: null, status: false});
+
   const handleSave = (e) => {
     e.preventDefault();
     let data = [...contacs];
-    data.push({id: uid(), name: name, no: no})
-    setContacs(data)
+
+    if(edit.status) {
+      data.forEach(item => {
+        if(item.id === edit.id) {
+          item.name = name;
+          item.no = no;
+        }
+      })
+    } else {
+      data.push({id: uid(), name: name, no: no});
+    }
+    setContacs(data);
+    setName('');
+    setNo('');
+  }
+
+  const handleEdit = (id) => {
+    let data = [...contacs];
+    let cariData = data.find(i => i.id === id);
+    setName(cariData.name);
+    setNo(cariData.no);
+    setEdit({id: id, status: true});
   }
 
   return (
@@ -24,17 +46,17 @@ function App() {
         <Form className="input__form" onSubmit={handleSave}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Nama</Form.Label>
-            <Form.Control type="text" placeholder="Enter your name" onChange={(e) => setName(e.target.value)}/>
+            <Form.Control type="text" placeholder="Enter your name" value={name} onChange={(e) => setName(e.target.value)}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>No Hp</Form.Label>
-            <Form.Control type="text" placeholder="Enter your number"  onChange={(e) => setNo(e.target.value)} />
+            <Form.Control type="text" placeholder="Enter your number" value={no}  onChange={(e) => setNo(e.target.value)} />
           </Form.Group>
           <Button variant="primary" type="submit">
             Save
           </Button>
         </Form>
-        <ListContacts contacs={contacs}/>
+        <ListContacts contacs={contacs} handleEdit={handleEdit} />
       </div>
     </div>
   );
