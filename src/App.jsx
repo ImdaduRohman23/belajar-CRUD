@@ -56,12 +56,14 @@ function App() {
             <Form.Control type="text" placeholder="Enter your name" value={name} onChange={(e) => setName(e.target.value)}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>No Hp</Form.Label>
+            <Form.Label>No Telp.</Form.Label>
             <Form.Control type="text" placeholder="Enter your number" value={no} onChange={(e) => setNo(e.target.value)} />
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Save
-          </Button>
+          {
+            !edit.status ? 
+            <Button variant="primary" type="submit">Save</Button> : <Button variant="warning" type="submit">Ok</Button>
+          }
+
         </Form>
         <ListContacts contacs={contacs} handleEdit={handleEdit} handleDelete={handleDelete}/>
       </div>

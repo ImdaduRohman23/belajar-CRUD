@@ -15,7 +15,7 @@ export default function ListContacts({ contacs, handleEdit, handleDelete }) {
                             </div>
                         </div>
                         <div className="listContact__right">
-                            <Button onClick={() => handleEdit(item.id)}>Edit</Button>
+                            <Button onClick={() => handleEdit(item.id)} variant="warning">Edit</Button>
                             <Button onClick={() => handleDelete(item.id)} variant="danger">Delete</Button>
                         </div>
                     </div>
