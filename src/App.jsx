@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from "react";
 import { uid } from "uid";
+import swal from 'sweetalert';
 
 function App() {
   const [contacs, setContacs] = useState([]);
@@ -27,6 +28,7 @@ function App() {
       data.push({id: uid(), name: name, no: no});
     }
     setContacs(data);
+    swal("Data berhasil ditambahkan!", "", "success");
     setEdit({id: null, status: false});
     setName('');
     setNo('');
@@ -43,7 +45,11 @@ function App() {
   const handleDelete = (id) => {
     let data = [...contacs];
     let cariData = data.filter(i => i.id != id);
-    setContacs(cariData)
+    setContacs(cariData);
+    swal({
+      title: "Data berhasil dihapus!",
+      icon: "warning",
+    });
   }
 
   return (
@@ -67,6 +73,7 @@ function App() {
         </Form>
         <ListContacts contacs={contacs} handleEdit={handleEdit} handleDelete={handleDelete}/>
       </div>
+
     </div>
   );
 }
