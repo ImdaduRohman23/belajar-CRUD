@@ -7,7 +7,7 @@ export default function ListContacts({ contacs }) {
         <div className="list">
             {
                 contacs.map(item => (
-                    <div className="listContact">
+                    <div className="listContact" key={item.id}>
                         <div className="listContact__left">
                             <div>
                                 <h5>{item.name}</h5>
