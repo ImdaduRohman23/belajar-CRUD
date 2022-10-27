@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import "./list.css";
 
-export default function ListContacts({ contacs, handleEdit }) {
+export default function ListContacts({ contacs, handleEdit, handleDelete }) {
     return (
         <div className="list">
             {
@@ -16,7 +16,7 @@ export default function ListContacts({ contacs, handleEdit }) {
                         </div>
                         <div className="listContact__right">
                             <Button onClick={() => handleEdit(item.id)}>Edit</Button>
-                            <Button variant="danger">hapus</Button>
+                            <Button onClick={() => handleDelete(item.id)} variant="danger">Delete</Button>
                         </div>
                     </div>
                 ))

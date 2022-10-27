@@ -27,6 +27,7 @@ function App() {
       data.push({id: uid(), name: name, no: no});
     }
     setContacs(data);
+    setEdit({id: null, status: false});
     setName('');
     setNo('');
   }
@@ -37,6 +38,12 @@ function App() {
     setName(cariData.name);
     setNo(cariData.no);
     setEdit({id: id, status: true});
+  };
+
+  const handleDelete = (id) => {
+    let data = [...contacs];
+    let cariData = data.filter(i => i.id != id);
+    setContacs(cariData)
   }
 
   return (
@@ -50,13 +57,13 @@ function App() {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>No Hp</Form.Label>
-            <Form.Control type="text" placeholder="Enter your number" value={no}  onChange={(e) => setNo(e.target.value)} />
+            <Form.Control type="text" placeholder="Enter your number" value={no} onChange={(e) => setNo(e.target.value)} />
           </Form.Group>
           <Button variant="primary" type="submit">
             Save
           </Button>
         </Form>
-        <ListContacts contacs={contacs} handleEdit={handleEdit} />
+        <ListContacts contacs={contacs} handleEdit={handleEdit} handleDelete={handleDelete}/>
       </div>
     </div>
   );
