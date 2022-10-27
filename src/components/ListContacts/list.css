@@ -1,0 +1,17 @@
+.list {
+    margin-top: 20px;
+}
+
+.listContact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.listContact__right button {
+    margin: 5px;
+}

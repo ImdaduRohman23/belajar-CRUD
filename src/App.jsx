@@ -3,8 +3,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ListContacts from "./components/ListContacts";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useState } from "react";
 
 function App() {
+  const [contacs, setContacs] = useState([
+    {
+      id: 1,
+      name: 'Imdadu',
+      no: '082241735554'
+    },
+    {
+      id: 2,
+      name: 'Rohman',
+      no: '082241735555'
+    }
+  ])
 
   return (
     <div className="app">
@@ -23,7 +36,7 @@ function App() {
             Save
           </Button>
         </Form>
-        <ListContacts />
+        <ListContacts contacs={contacs}/>
       </div>
     </div>
   );
